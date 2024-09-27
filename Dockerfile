@@ -29,9 +29,9 @@ RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
 
 RUN chown -R docker ~docker && /home/docker/actions-runner/bin/installdependencies.sh
 
-COPY start.sh /usr/local/bin/
+COPY startup.sh /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/start.sh 
+RUN chmod +x /usr/local/bin/startup.sh 
 
 # add over the start.sh script
 
@@ -47,4 +47,4 @@ USER docker
  
 # set the entrypoint to the start.sh script
 
-ENTRYPOINT ["./start.sh"]
+ENTRYPOINT ["./startup.sh"]
