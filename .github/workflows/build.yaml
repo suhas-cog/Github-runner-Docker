@@ -23,7 +23,7 @@ jobs:
       
     - uses: docker/setup-buildx-action@v2
     - name: Build the Docker image  
-      run: docker build --build-arg RUNNER_VERSION=2.319.1 -t supdude/gh-runner:first .
+      run: docker build --build-arg RUNNER_VERSION=2.319.1 -t supdude/gh-runner:second .
 
     - name: Push to Dockerhub
-      run: docker push supdude/gh-runner:first
+      run: docker push supdude/gh-runner:second
