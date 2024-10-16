@@ -18,9 +18,23 @@ RUN apt-get update -y && apt-get upgrade -y && useradd -m docker
 
 RUN apt-get install -y --no-install-recommends \
     curl nodejs wget unzip vim git azure-cli jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip
+
+# Update and install necessary dependencies
+RUN apt-get update && \
+   apt-get install -y software-properties-common curl
+# Install Java 8
+RUN add-apt-repository ppa:webupd8team/java && \
+   apt-get update && \
+   apt-get install -y openjdk-8-jdk
+# Install Maven
+RUN apt-get install -y maven
+# Set JAVA_HOME environment variable
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+ENV PATH="$JAVA_HOME/bin:$PATH"
+# Verify installation
+RUN java -version && mvn -version
  
 # cd into the user directory, download and unzip the github actions runner
-
 RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
 && curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
 && tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz
