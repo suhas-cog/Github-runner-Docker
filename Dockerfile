@@ -23,9 +23,7 @@ RUN apt-get install -y --no-install-recommends \
 RUN apt-get update && \
    apt-get install -y software-properties-common curl
 # Install Java 8
-RUN add-apt-repository ppa:webupd8team/java && \
-   apt-get update && \
-   apt-get install -y openjdk-8-jdk
+RUN apt-get install -y openjdk-8-jdk
 # Install Maven
 RUN apt-get install -y maven
 # Set JAVA_HOME environment variable
