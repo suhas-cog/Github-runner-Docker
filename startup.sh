@@ -23,35 +23,34 @@ cleanup() {
 trap 'cleanup; exit 130' INT
 trap 'cleanup; exit 143' TERM
  
-./run.sh 
+./run.sh & wait $
 
-# Install OpenJDK 16
-RUN apt-get install -y openjdk-16-jdk
+# # Install OpenJDK 16
+# RUN apt-get install -y openjdk-16-jdk
  
-# Verify Java installation
-RUN java -version
+# # Verify Java installation
+# RUN java -version
  
-# Install Maven 3.9
-RUN wget https://dlcdn.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz && \
-    tar xzvf apache-maven-3.9.5-bin.tar.gz && \
-    mv apache-maven-3.9.5 /opt/maven && \
-    ln -s /opt/maven/bin/mvn /usr/bin/mvn
+# # Install Maven 3.9
+# RUN wget https://dlcdn.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz && \
+#     tar xzvf apache-maven-3.9.5-bin.tar.gz && \
+#     mv apache-maven-3.9.5 /opt/maven && \
+#     ln -s /opt/maven/bin/mvn /usr/bin/mvn
  
-# Set Maven environment variables
-ENV MAVEN_HOME /opt/maven
-ENV PATH $MAVEN_HOME/bin:$PATH
+# # Set Maven environment variables
+# ENV MAVEN_HOME /opt/maven
+# ENV PATH $MAVEN_HOME/bin:$PATH
  
-# Verify Maven installation
-RUN mvn -version
+# # Verify Maven installation
+# RUN mvn -version
  
-# Install JMeter
-RUN wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.1.1.tgz && \
-    tar xzvf apache-jmeter-5.1.1.tgz && \
-    mv apache-jmeter-5.1.1 /opt/jmeter && \
-    ln -s /opt/jmeter/bin/jmeter /usr/bin/jmeter
-ENV PATH /opt/jmeter/bin:$PATH
+# # Install JMeter
+# RUN wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.1.1.tgz && \
+#     tar xzvf apache-jmeter-5.1.1.tgz && \
+#     mv apache-jmeter-5.1.1 /opt/jmeter && \
+#     ln -s /opt/jmeter/bin/jmeter /usr/bin/jmeter
+# ENV PATH /opt/jmeter/bin:$PATH
  
-# Verify JMeter installation
-RUN jmeter --version
+# # Verify JMeter installation
+# RUN jmeter --version
  
-wait $
