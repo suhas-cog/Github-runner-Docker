@@ -23,7 +23,7 @@ cleanup() {
 trap 'cleanup; exit 130' INT
 trap 'cleanup; exit 143' TERM
  
-./run.sh & wait $
+./run.sh & $wait 
 
 # # Install OpenJDK 16
 # RUN apt-get install -y openjdk-16-jdk

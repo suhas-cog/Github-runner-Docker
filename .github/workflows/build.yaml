@@ -24,10 +24,10 @@ jobs:
       
     # - uses: docker/setup-buildx-action@v2
     - name: Build the Docker image  
-      run: docker build --build-arg RUNNER_VERSION=2.319.1 -t suhascognizant/ecs-ft-runner:v1 .
+      run: docker build --build-arg RUNNER_VERSION=2.319.1 -t suhascognizant/ecs-ft-runner:latest .
 
     - name: Push to Dockerhub
-      run: docker push suhascognizant/ecs-ft-runner:v1
+      run: docker push suhascognizant/ecs-ft-runner:latest
 
     - name: Pull Docker image
-      run: docker pull suhascognizant/ecs-ft-runner:v1
+      run: docker pull suhascognizant/ecs-ft-runner:latest

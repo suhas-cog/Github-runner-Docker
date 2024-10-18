@@ -13,7 +13,7 @@ LABEL RunnerVersion=${RUNNER_VERSION}
 # update the base packages + add a non-sudo user
 
 RUN apt-get update -y && apt-get upgrade -y && useradd -m docker
- 
+
 # install the packages and dependencies along with jq so we can parse JSON (add additional packages as necessary)
 
 RUN apt-get install -y --no-install-recommends \
@@ -46,17 +46,9 @@ COPY startup.sh /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/startup.sh 
 
-# add over the start.sh script
-
-# ADD start.sh start.sh
- 
-# # make the script executable
-
-# RUN chmod +x start.sh
- 
-# set the user to "docker" so all subsequent commands are run as the docker user
-
 USER docker
+
+RUN apt-get update && apt-get install -y sudo
  
 # set the entrypoint to the start.sh script
 
