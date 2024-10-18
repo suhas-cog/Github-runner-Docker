@@ -14,6 +14,7 @@ LABEL RunnerVersion=${RUNNER_VERSION}
 
 RUN apt-get update -y && apt-get upgrade -y && useradd -m docker
 
+RUN apt-get update && apt-get install -y sudo
 # install the packages and dependencies along with jq so we can parse JSON (add additional packages as necessary)
 
 RUN apt-get install -y --no-install-recommends \
@@ -47,8 +48,6 @@ COPY startup.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/startup.sh 
 
 USER docker
-
-RUN apt-get update && apt-get install -y sudo
  
 # set the entrypoint to the start.sh script
 
