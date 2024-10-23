@@ -92,5 +92,5 @@ USER docker
  
 # set the entrypoint to the start.sh script
 
-ENTRYPOINT ["/startup.sh"]
+ENTRYPOINT ["startup.sh"]
 CMD ["startup.sh"]
