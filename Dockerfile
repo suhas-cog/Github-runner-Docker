@@ -6,7 +6,7 @@ ARG RUNNER_VERSION
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-LABEL BaseImage="ubuntu:20.04"
+LABEL BaseImage="alpine:latest"
 
 LABEL RunnerVersion=${RUNNER_VERSION}
  
