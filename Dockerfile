@@ -57,9 +57,14 @@ RUN java -version
 # Install JMeter
  RUN wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.1.1.tgz && \
     tar xzvf apache-jmeter-5.1.1.tgz && \
-     mv apache-jmeter-5.1.1 /opt/jmeter && \
-     ln -s /opt/jmeter/bin/jmeter /usr/bin/jmeter
- COPY SampleAPI.jmx //home/runner/work/_temp/    
+    mv apache-jmeter-5.1.1 /opt/jmeter && \
+    ln -s /opt/jmeter/bin/jmeter /usr/bin/jmeter
+
+ RUN wget https://jmeter-plugins.org/files/packages/jpgc-filterresults-2.2.zip -P . && \
+    unzip -o jpgc-filterresults-2.2.zip && \
+    mv jpgc-filterresults-2.2 apache-jmeter-5.1.1/lib/ext
+
+ COPY SampleAPI.jmx //home/runner/work/_temp/     
  ENV PATH /opt/jmeter/bin:$PATH
 
 # #Verify JMeter installation
