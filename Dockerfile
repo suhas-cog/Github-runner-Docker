@@ -64,10 +64,7 @@ RUN wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.1.1.tgz
     mv apache-jmeter-5.1.1 /opt/jmeter && \
     ln -s /opt/jmeter/bin/jmeter /usr/bin/jmeter
 
-RUN wget https://jmeter-plugins.org/get/ && \
-    mkdir -p $JMETER_HOME/lib/ext && \
-    mv get $JMETER_HOME/lib/ext/jmeter-plugins-manager.jar && \
-    wget https://jmeter-plugins.org/files/packages/jpgc-cmd-2.0.zip && \
+RUN wget https://jmeter-plugins.org/files/packages/jpgc-cmd-2.0.zip && \
     unzip jpgc-cmd-2.0.zip -d $JMETER_HOME && \
     rm jpgc-cmd-2.0.zip
 
@@ -81,7 +78,7 @@ RUN wget https://jmeter-plugins.org/files/packages/jpgc-mergeresults-2.2.zip && 
     unzip jpgc-mergeresults-2.2.zip -d $JMETER_HOME && \
     rm jpgc-mergeresults-2.2.zip
 
-#  RUN wget https://jmeter-plugins.org/files/packages/jpgc-filterresults-2.2.zip -P . && \
+# RUN wget https://jmeter-plugins.org/files/packages/jpgc-filterresults-2.2.zip -P . && \
 #     unzip -o jpgc-filterresults-2.2.zip && \
 #     mv jpgc-filterresults-2.2 apache-jmeter-5.1.1/lib/ext
 
