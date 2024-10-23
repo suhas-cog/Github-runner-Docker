@@ -42,37 +42,58 @@ RUN apt-get install -y openjdk-16-jdk
 RUN java -version
 
 # # Install Maven 3.9
- RUN wget https://dlcdn.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz && \
-     tar xzvf apache-maven-3.9.5-bin.tar.gz && \
-     mv apache-maven-3.9.5 /opt/maven && \
-     ln -s /opt/maven/bin/mvn /usr/bin/mvn
+RUN wget https://dlcdn.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz && \
+    tar xzvf apache-maven-3.9.5-bin.tar.gz && \
+    mv apache-maven-3.9.5 /opt/maven && \
+    ln -s /opt/maven/bin/mvn /usr/bin/mvn
 
 # Set Maven environment variables
- ENV MAVEN_HOME /opt/maven
- ENV PATH $MAVEN_HOME/bin:$PATH
+ENV MAVEN_HOME /opt/maven
+ENV PATH $MAVEN_HOME/bin:$PATH
 
 # Verify Maven installation
- RUN mvn -version
+RUN mvn -version
+
+ENV JMETER_VERSION=5.1.1
+ENV JMETER_HOME=/opt/apache-jmeter-${JMETER_VERSION}
+ENV PATH=$JMETER_HOME/bin:$PATH
 
 # Install JMeter
- RUN wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.1.1.tgz && \
+RUN wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.1.1.tgz && \
     tar xzvf apache-jmeter-5.1.1.tgz && \
     mv apache-jmeter-5.1.1 /opt/jmeter && \
     ln -s /opt/jmeter/bin/jmeter /usr/bin/jmeter
 
- RUN wget https://jmeter-plugins.org/files/packages/jpgc-filterresults-2.2.zip -P . && \
-    unzip -o jpgc-filterresults-2.2.zip && \
-    mv jpgc-filterresults-2.2 apache-jmeter-5.1.1/lib/ext
+RUN wget https://jmeter-plugins.org/get/ && \
+    mkdir -p $JMETER_HOME/lib/ext && \
+    mv get $JMETER_HOME/lib/ext/jmeter-plugins-manager.jar && \
+    wget https://jmeter-plugins.org/files/packages/jpgc-cmd-2.0.zip && \
+    unzip jpgc-cmd-2.0.zip -d $JMETER_HOME && \
+    rm jpgc-cmd-2.0.zip
 
- COPY SampleAPI.jmx //home/runner/work/_temp/     
- ENV PATH /opt/jmeter/bin:$PATH
+# Install filterresults plugin
+RUN wget https://jmeter-plugins.org/files/packages/jpgc-filterresults-2.2.zip && \
+    unzip jpgc-filterresults-2.2.zip -d $JMETER_HOME && \
+    rm jpgc-filterresults-2.2.zip
+
+# Install merge results plugin
+RUN wget https://jmeter-plugins.org/files/packages/jpgc-mergeresults-2.2.zip && \
+    unzip jpgc-mergeresults-2.2.zip -d $JMETER_HOME && \
+    rm jpgc-mergeresults-2.2.zip
+
+#  RUN wget https://jmeter-plugins.org/files/packages/jpgc-filterresults-2.2.zip -P . && \
+#     unzip -o jpgc-filterresults-2.2.zip && \
+#     mv jpgc-filterresults-2.2 apache-jmeter-5.1.1/lib/ext
+
+COPY SampleAPI.jmx //home/runner/work/_temp/     
+ENV PATH /opt/jmeter/bin:$PATH
 
 # #Verify JMeter installation
- RUN jmeter --version
+RUN jmeter --version
 
- USER docker
+USER docker
  
 # set the entrypoint to the start.sh script
 
 ENTRYPOINT ["/startup.sh"]
-CMD ["startup.sh"]/usr/local/bin
+CMD ["startup.sh"]
