@@ -74,9 +74,9 @@ RUN wget https://jmeter-plugins.org/files/packages/jpgc-filterresults-2.2.zip &&
     rm jpgc-filterresults-2.2.zip
 
 # Install merge results plugin
-RUN wget https://jmeter-plugins.org/files/packages/jpgc-mergeresults-2.1.zip && \
-    unzip jpgc-mergeresults-2.1.zip -d $JMETER_HOME && \
-    rm jpgc-mergeresults-2.1.zip
+# RUN wget https://jmeter-plugins.org/files/packages/jpgc-mergeresults-2.1.zip && \
+#     unzip jpgc-mergeresults-2.1.zip -d $JMETER_HOME && \
+#     rm jpgc-mergeresults-2.1.zip
 
 # RUN wget https://jmeter-plugins.org/files/packages/jpgc-filterresults-2.2.zip -P . && \
 #     unzip -o jpgc-filterresults-2.2.zip && \
